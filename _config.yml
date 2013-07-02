@@ -12,7 +12,7 @@ pygments: true
 title : 扣得
 tagline: 凉快的地方待着
 author :
-  name : jmuok
+  name : Jiang
   email : jmujmu@gmail.com
   github : jmu
   twitter : jmuok
@@ -101,7 +101,7 @@ JB :
   analytics :
     provider : google 
     google : 
-        tracking_id : 'UA-123-12'
+        tracking_id : 'UA-17751026-1'
     getclicky :
       site_id : 
     mixpanel :
