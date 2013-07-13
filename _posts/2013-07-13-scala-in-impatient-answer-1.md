@@ -2,8 +2,8 @@
 layout: post
 title: "Scala in Impatient 习题解答1"
 description: "快学Scala习题答案"
-category: Scala, 快学Scala, Scala for the Impatient
-tags: []
+category: Scala
+tags: [Scala, 快学Scala, Scala for the Impatient]
 ---
 {% include JB/setup %}
 
