@@ -7,9 +7,17 @@ tags: [Scala, 快学Scala, Scala for the Impatient]
 ---
 {% include JB/setup %}
 
-在看《[Scala for the Impatient][1]》之余，将习题也做了一遍,记录下来。
+《[Scala for the Impatient][1]》,书如其书名，是给想快速了解Scala语言的人写的。
+当然，也不是没有门槛，至少是对Java/C++比较了解。书中假定你已掌握以上语言的一定基
+础，并多处与Scala进行了对比。
+
+此书作者还免费提供了A1级别的全部9章电子版内容， 在[TypeSafe网站][2]可以下到PDF版（英文）。
+不得不说真慷慨！赞！
+
+在看书之余，将习题也做了一遍,记录下来。
 
 [1]: http://horstmann.com/scala/
+[2]: http://typesafe.com/resources/book/scala-for-the-impatient
 
 1. 在REPL模式下输入 `3.` 然后按回车 `ENTER`显示如下：
 
