@@ -123,6 +123,7 @@ tags: [Scala, 快学Scala, Scala for the Impatient]
 
 8\. RGB如果分别用8位表示，红是`0xff0000`,绿是`0x00ff00`,蓝是`0x0000ff`。以此类推
 ，8个顶点分别是(0,0,0)(0,0,1)(0,1,0)(0,1,1)(1,0,0)(1,0,1)(1,1,0)(1,1,1)
+
 RGB的立方体模型参考维基百科<http://en.wikipedia.org/wiki/RGB_color_model>
 
     object RGBCube extends Enumeration {
