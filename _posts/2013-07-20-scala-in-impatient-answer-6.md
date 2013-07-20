@@ -95,6 +95,8 @@ tags: [Scala, 快学Scala, Scala for the Impatient]
         val CLUBS = Value("♣")
     }
 
+验证
+
     scala> PokerFace.SPADES
     res59: PokerFace.Value = ♠
 
@@ -143,6 +145,11 @@ RGB的立方体模型参考维基百科<http://en.wikipedia.org/wiki/RGB_color_m
         val V7 = Value(vertexes(6))
         val V8 = Value(vertexes(7))
     }
+
+验证
+
+    scala> RGBCube.V4.id.toHexString
+    res24: String = ffff
 
 ----
 <div align="right">use Scala 2.9.1</div>
