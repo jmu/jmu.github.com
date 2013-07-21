@@ -16,146 +16,146 @@ tags: [Scala, 快学Scala, Scala for the Impatient]
 
 1. 
 
-    scala> val items = Map("iphone" -> 4999, "mx2" -> 2499, "pad" -> 3800)
-    items: scala.collection.immutable.Map[java.lang.String,Int] = Map(iphone ->
-    4999, mx2 -> 2499, pad -> 3800)
+        scala> val items = Map("iphone" -> 4999, "mx2" -> 2499, "pad" -> 3800)
+        items: scala.collection.immutable.Map[java.lang.String,Int] = Map(iphone ->
+        4999, mx2 -> 2499, pad -> 3800)
 
-    scala> val items2 = for ((k,v) <- items) yield (k, v * 0.9)
-    items2: scala.collection.immutable.Map[java.lang.String,Double] = Map(iphone ->
-    4499.1, mx2 -> 2249.1, pad -> 3420.0)
+        scala> val items2 = for ((k,v) <- items) yield (k, v * 0.9)
+        items2: scala.collection.immutable.Map[java.lang.String,Double] = Map(iphone ->
+        4499.1, mx2 -> 2249.1, pad -> 3420.0)
 
-2\. 
+2. 
 
-    import scala.collection.mutable.HashMap
+        import scala.collection.mutable.HashMap
 
-    val in = new java.util.Scanner(new java.io.File("README.md"))
-    val result = new HashMap[String,Long]
-    while (in.hasNext()) {
-        val str = in.next()
-        if (result.contains(str)) result(str) += 1 
-        else result += (str -> 1)
-    }
-    in.close()
+        val in = new java.util.Scanner(new java.io.File("README.md"))
+        val result = new HashMap[String,Long]
+        while (in.hasNext()) {
+            val str = in.next()
+            if (result.contains(str)) result(str) += 1 
+            else result += (str -> 1)
+        }
+        in.close()
 
-    print(result)
+        print(result)
 
-3\. 重复前一个练习，这次用不可变的映射
+3. 重复前一个练习，这次用不可变的映射
 
-    val in = new java.util.Scanner(new java.io.File("README.md"))
-    var result = Map[String,Long]()
-    while (in.hasNext()) {
-        val str = in.next()
-        if (result.contains(str)) {
-            val c_v = result(str)
-            result = result - str
-            result = result + (str -> (c_v + 1))
-        } else
-            result = result + (str -> 1)
-    }
-    in.close()
+        val in = new java.util.Scanner(new java.io.File("README.md"))
+        var result = Map[String,Long]()
+        while (in.hasNext()) {
+            val str = in.next()
+            if (result.contains(str)) {
+                val c_v = result(str)
+                result = result - str
+                result = result + (str -> (c_v + 1))
+            } else
+                result = result + (str -> 1)
+        }
+        in.close()
 
-    print(result)
+        print(result)
 
-4\.
+4. 
 
-    import scala.collection.immutable.SortedMap
+        import scala.collection.immutable.SortedMap
 
-    val in = new java.util.Scanner(new java.io.File("README.md"))
-    var result = SortedMap[String,Long]()
-    while (in.hasNext()) {
-        val str = in.next()
-        if (result.contains(str)) {
-            val c_v = result(str)
-            result = result - str
-            result = result + (str -> (c_v + 1))
-        } else
-            result = result + (str -> 1)
-    }
-    in.close()
+        val in = new java.util.Scanner(new java.io.File("README.md"))
+        var result = SortedMap[String,Long]()
+        while (in.hasNext()) {
+            val str = in.next()
+            if (result.contains(str)) {
+                val c_v = result(str)
+                result = result - str
+                result = result + (str -> (c_v + 1))
+            } else
+                result = result + (str -> 1)
+        }
+        in.close()
 
-    print(result)
+        print(result)
 
-5\. use TreeMap in scala
+5. use TreeMap in scala
 
-    import scala.collection.JavaConversions.mapAsScalaMap
+        import scala.collection.JavaConversions.mapAsScalaMap
 
-    val in = new java.util.Scanner(new java.io.File("README.md"))
-    val result: scala.collection.mutable.Map[String, Long] = 
-        new java.util.TreeMap[String,Long]
-    while (in.hasNext()) {
-        val str = in.next()
-        if (result.contains(str)) result(str) += 1 
-        else result += (str -> 1)
-    }
-    in.close()
+        val in = new java.util.Scanner(new java.io.File("README.md"))
+        val result: scala.collection.mutable.Map[String, Long] = 
+            new java.util.TreeMap[String,Long]
+        while (in.hasNext()) {
+            val str = in.next()
+            if (result.contains(str)) result(str) += 1 
+            else result += (str -> 1)
+        }
+        in.close()
 
-    print(result)
+        print(result)
 
-6\. 
+6. 
 
-    scala> val months = scala.collection.mutable.LinkedHashMap("Monday" ->
-    java.util.Calendar.MONDAY)
-    months: scala.collection.mutable.LinkedHashMap[java.lang.String,Int] =
-    Map(Monday -> 2)
+        scala> val months = scala.collection.mutable.LinkedHashMap("Monday" ->
+        java.util.Calendar.MONDAY)
+        months: scala.collection.mutable.LinkedHashMap[java.lang.String,Int] =
+        Map(Monday -> 2)
 
-    scala> months += "Sunday" -> java.util.Calendar.SUNDAY
-    res5: months.type = Map(Monday -> 2, Sunday -> 1)
+        scala> months += "Sunday" -> java.util.Calendar.SUNDAY
+        res5: months.type = Map(Monday -> 2, Sunday -> 1)
 
-    scala> months += "Friday" -> java.util.Calendar.FRIDAY
-    res6: months.type = Map(Monday -> 2, Sunday -> 1, Friday -> 6)
+        scala> months += "Friday" -> java.util.Calendar.FRIDAY
+        res6: months.type = Map(Monday -> 2, Sunday -> 1, Friday -> 6)
 
-7\. 
+7. 
 
-    scala> import scala.collection.JavaConversions.propertiesAsScalaMap
-    import scala.collection.JavaConversions.propertiesAsScalaMap
+        scala> import scala.collection.JavaConversions.propertiesAsScalaMap
+        import scala.collection.JavaConversions.propertiesAsScalaMap
 
-    scala> val props: scala.collection.Map[String, String] = System.getProperties()
+        scala> val props: scala.collection.Map[String, String] = System.getProperties()
 
-    scala> var maxLen = 0; for (i <- props.keys) if (i.length > maxLen) maxLen =
-    i.length
-    maxLen: Int = 29
+        scala> var maxLen = 0; for (i <- props.keys) if (i.length > maxLen) maxLen =
+        i.length
+        maxLen: Int = 29
 
-    scala> for ((k,v) <- props) println(k + " " * (maxLen+2-k.length) + "|" + v)
-    env.emacs                      |
-    java.runtime.name              |Java(TM) SE Runtime Environment
-    sun.boot.library.path          |/usr/lib/jvm/java-7-sun/jre/lib/i386
-    java.vm.version                |23.21-b01
-    java.vm.vendor                 |Oracle Corporation
-    java.vendor.url                |http://java.oracle.com/
-    path.separator                 |:
-    java.vm.name                   |Java HotSpot(TM) Server VM
-    file.encoding.pkg              |sun.io
-    user.country                   |US
-    sun.java.launcher              |SUN_STANDARD
+        scala> for ((k,v) <- props) println(k + " " * (maxLen+2-k.length) + "|" + v)
+        env.emacs                      |
+        java.runtime.name              |Java(TM) SE Runtime Environment
+        sun.boot.library.path          |/usr/lib/jvm/java-7-sun/jre/lib/i386
+        java.vm.version                |23.21-b01
+        java.vm.vendor                 |Oracle Corporation
+        java.vendor.url                |http://java.oracle.com/
+        path.separator                 |:
+        java.vm.name                   |Java HotSpot(TM) Server VM
+        file.encoding.pkg              |sun.io
+        user.country                   |US
+        sun.java.launcher              |SUN_STANDARD
 
-8\. 
+8. 
 
-    def minmax(values: Array[Int]) = {
-        (values.min, values.max)
-    }
+        def minmax(values: Array[Int]) = {
+            (values.min, values.max)
+        }
 
-    scala> val a = minmax(Array(1,2,3,4,-5))
-    a: (Int, Int) = (-5,4)
+        scala> val a = minmax(Array(1,2,3,4,-5))
+        a: (Int, Int) = (-5,4)
 
-9\. 
+9. 
 
-    def lteqgt(values: Array[Int], v: Int) = {
-        val lt = values.filter(_ < v).length
-        val eq = values.filter(_ == v).length
-        (lt, eq, (values.length - lt - eq))
-    }
+        def lteqgt(values: Array[Int], v: Int) = {
+            val lt = values.filter(_ < v).length
+            val eq = values.filter(_ == v).length
+            (lt, eq, (values.length - lt - eq))
+        }
 
-    scala> val (lt, eq, gt) = lteqgt(Array(1,2,3,4,5,6), 4)
-    lt: Int = 3
-    eq: Int = 1
-    gt: Int = 2
+        scala> val (lt, eq, gt) = lteqgt(Array(1,2,3,4,5,6), 4)
+        lt: Int = 3
+        eq: Int = 1
+        gt: Int = 2
 
-10\. 执行`"Hello".zip("World")`的结果是，生成了字母相对的tuple。一个现实中可能的
+10. 执行`"Hello".zip("World")`的结果是，生成了字母相对的tuple。一个现实中可能的
 用途？捆绑一起然后随机排列，以便能保持相同顺序？
 
-    scala> "Hello".zip("World")
-    res18: scala.collection.immutable.IndexedSeq[(Char, Char)] = Vector((H,W),
-    (e,o), (l,r), (l,l), (o,d))
+        scala> "Hello".zip("World")
+        res18: scala.collection.immutable.IndexedSeq[(Char, Char)] = Vector((H,W),
+        (e,o), (l,r), (l,l), (o,d))
 
 
 ----
