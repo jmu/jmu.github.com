@@ -10,7 +10,7 @@ tags: [Scala, 快学Scala, Scala for the Impatient]
 练习的时候出现一个[REPL的问题]({% post_url 2013-07-20-scala-qa %}/#1)
 
 
-1. 区别是后者
+1. 区别是后者的上层包也可见，而串写的只有当前包范围可见。
 
   创建b.scala内容为
 
