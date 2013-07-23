@@ -9,43 +9,49 @@ tags: [Scala, 快学Scala, Scala for the Impatient]
 
 1. 
 
-        class Counter {
-            private var value = 0
+    ```scala
+    class Counter {
+        private var value = 0
 
-            def increment() { if (value < Int.MaxValue) value += 1 }
-            def current = value
-        }
+        def increment() { if (value < Int.MaxValue) value += 1 }
+        def current = value
+    }
+    ```
 
 2. 
 
-        class BankAccount {
-            private var b = 0
+    ```scala
+    class BankAccount {
+        private var b = 0
 
-            def balance = b 
+        def balance = b 
 
-            def deposit(num: Int) = {
-                if (num > 0) {
-                    b = b + num
-                }
-                b
+        def deposit(num: Int) = {
+            if (num > 0) {
+                b = b + num
             }
-
-            def withdraw(num: Int) = {
-                if (num > 0) {
-                    b = b - num
-                }
-                b
-            }
+            b
         }
+
+        def withdraw(num: Int) = {
+            if (num > 0) {
+                b = b - num
+            }
+            b
+        }
+    }
+    ```
 
 3. 
 
-        class Time(val hours: Int, val minutes: Int) {
+    ```scala
+    class Time(val hours: Int, val minutes: Int) {
 
-            def before(other: Time): Boolean = {
-                hours + minutes < other.hours + other.minutes
-            }
+        def before(other: Time): Boolean = {
+            hours + minutes < other.hours + other.minutes
         }
+    }
+    ```
 
         scala> val a = new Time(3,21)
         a: Time = Time@13a09b0
@@ -61,13 +67,15 @@ tags: [Scala, 快学Scala, Scala for the Impatient]
 
 4. 
 
-        class Time(val hours: Int, val minutes: Int) {
-            private val m = hours * 60 + minutes
+    ```scala
+    class Time(val hours: Int, val minutes: Int) {
+        private val m = hours * 60 + minutes
 
-            def before(other: Time): Boolean = {
-                m < other.m
-            }
+        def before(other: Time): Boolean = {
+            m < other.m
         }
+    }
+    ```
 
 5. 
 
@@ -90,94 +98,106 @@ tags: [Scala, 快学Scala, Scala for the Impatient]
 
   使用`@BeanProperty`增加兼容JavaBean的get和set方法
 
-        import scala.reflect.BeanProperty
+    ```scala
+    import scala.reflect.BeanProperty
 
-        class Student {
-            @BeanProperty
-            var name: String = _
-            @BeanProperty
-            var id: Long = 0
-        }
+    class Student {
+        @BeanProperty
+        var name: String = _
+        @BeanProperty
+        var id: Long = 0
+    }
+    ```
 
 6. 
 
-        class Person(var age: Int) {
-            if (age < 0) age = 0
-        }
+    ```scala
+    class Person(var age: Int) {
+        if (age < 0) age = 0
+    }
+    ```
 
 7. `name`应该设定为`val`以防止被修改
 
-        class Person(val name: String) {
-            private val nameArray = name.split(" ")
+    ```scala
+    class Person(val name: String) {
+        private val nameArray = name.split(" ")
 
-            def firstName = nameArray(0)
-            def lastName = nameArray(1)
-        }
+        def firstName = nameArray(0)
+        def lastName = nameArray(1)
+    }
+    ```
 
 8. 
 
-        class Car(val manufacturer: String, val model: String,
-            val year:Int = -1, var number:String = "") {
-        }
+    ```scala
+    class Car(val manufacturer: String, val model: String,
+        val year:Int = -1, var number:String = "") {
+    }
+    ```
 
 9. 感受下Java实现的
 
-        public class Car { 
-            private final String manufacturer;
-            private final String model;
-            private final int year;
-            private String number;
+    ```java
+    public class Car { 
+        private final String manufacturer;
+        private final String model;
+        private final int year;
+        private String number;
 
-            public Car(String manufacturer, String model) {
-                this(manufacturer, model, -1, "");
-            }
-
-            public Car(String manufacturer, String model, int year) {
-                this(manufacturer, model, year, "");
-            }
-
-            public Car(String manufacturer, String model, int year, String number) {
-                this.manufacturer = manufacturer;
-                this.model = model;
-                this.year = year;
-                this.number = number;
-            }
-
-            public String getManufacturer() {
-                return this.manufacturer;
-            }
-
-            public String getModel() {
-                return this.model;
-            }
-
-            public int getYear() {
-                return this.year;
-            }
-
-            public String getNumber() {
-                return this.number;
-            }
-
-            public void setNumber() {
-                this.number = number;
-            }
+        public Car(String manufacturer, String model) {
+            this(manufacturer, model, -1, "");
         }
+
+        public Car(String manufacturer, String model, int year) {
+            this(manufacturer, model, year, "");
+        }
+
+        public Car(String manufacturer, String model, int year, String number) {
+            this.manufacturer = manufacturer;
+            this.model = model;
+            this.year = year;
+            this.number = number;
+        }
+
+        public String getManufacturer() {
+            return this.manufacturer;
+        }
+
+        public String getModel() {
+            return this.model;
+        }
+
+        public int getYear() {
+            return this.year;
+        }
+
+        public String getNumber() {
+            return this.number;
+        }
+
+        public void setNumber() {
+            this.number = number;
+        }
+    }
+    ```
 
 10. 显然还是用`primary constructor`更简洁
 
-        class Employee {
-          private var n: String = "John Q. Public"
-          var salary: Double = 0.0
+    ```scala
+    class Employee {
+      private var n: String = "John Q. Public"
+      var salary: Double = 0.0
 
-          def this(name: String, salary: Double) {
-            this()
-            n = name
-            this.salary = salary
-          }
+      def this(name: String, salary: Double) {
+        this()
+        n = name
+        this.salary = salary
+      }
 
-          def name = n
-        }
+      def name = n
+    }
+    ```
 
 ----
 <div align="right">use Scala 2.9.1</div>

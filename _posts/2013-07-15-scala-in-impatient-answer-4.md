@@ -26,70 +26,78 @@ tags: [Scala, 快学Scala, Scala for the Impatient]
 
 2. 
 
-        import scala.collection.mutable.HashMap
+    ```scala
+    import scala.collection.mutable.HashMap
 
-        val in = new java.util.Scanner(new java.io.File("README.md"))
-        val result = new HashMap[String,Long]
-        while (in.hasNext()) {
-            val str = in.next()
-            if (result.contains(str)) result(str) += 1 
-            else result += (str -> 1)
-        }
-        in.close()
+    val in = new java.util.Scanner(new java.io.File("README.md"))
+    val result = new HashMap[String,Long]
+    while (in.hasNext()) {
+        val str = in.next()
+        if (result.contains(str)) result(str) += 1 
+        else result += (str -> 1)
+    }
+    in.close()
 
-        print(result)
+    print(result)
+    ```
 
 3. 重复前一个练习，这次用不可变的映射
 
-        val in = new java.util.Scanner(new java.io.File("README.md"))
-        var result = Map[String,Long]()
-        while (in.hasNext()) {
-            val str = in.next()
-            if (result.contains(str)) {
-                val c_v = result(str)
-                result = result - str
-                result = result + (str -> (c_v + 1))
-            } else
-                result = result + (str -> 1)
-        }
-        in.close()
+    ```scala
+    val in = new java.util.Scanner(new java.io.File("README.md"))
+    var result = Map[String,Long]()
+    while (in.hasNext()) {
+        val str = in.next()
+        if (result.contains(str)) {
+            val c_v = result(str)
+            result = result - str
+            result = result + (str -> (c_v + 1))
+        } else
+            result = result + (str -> 1)
+    }
+    in.close()
 
-        print(result)
+    print(result)
+    ```
 
 4. 
 
-        import scala.collection.immutable.SortedMap
+    ```scala
+    import scala.collection.immutable.SortedMap
 
-        val in = new java.util.Scanner(new java.io.File("README.md"))
-        var result = SortedMap[String,Long]()
-        while (in.hasNext()) {
-            val str = in.next()
-            if (result.contains(str)) {
-                val c_v = result(str)
-                result = result - str
-                result = result + (str -> (c_v + 1))
-            } else
-                result = result + (str -> 1)
-        }
-        in.close()
+    val in = new java.util.Scanner(new java.io.File("README.md"))
+    var result = SortedMap[String,Long]()
+    while (in.hasNext()) {
+        val str = in.next()
+        if (result.contains(str)) {
+            val c_v = result(str)
+            result = result - str
+            result = result + (str -> (c_v + 1))
+        } else
+            result = result + (str -> 1)
+    }
+    in.close()
 
-        print(result)
+    print(result)
+    ```
 
 5. use TreeMap in scala
 
-        import scala.collection.JavaConversions.mapAsScalaMap
+    ```scala
+    import scala.collection.JavaConversions.mapAsScalaMap
 
-        val in = new java.util.Scanner(new java.io.File("README.md"))
-        val result: scala.collection.mutable.Map[String, Long] = 
-            new java.util.TreeMap[String,Long]
-        while (in.hasNext()) {
-            val str = in.next()
-            if (result.contains(str)) result(str) += 1 
-            else result += (str -> 1)
-        }
-        in.close()
+    val in = new java.util.Scanner(new java.io.File("README.md"))
+    val result: scala.collection.mutable.Map[String, Long] = 
+        new java.util.TreeMap[String,Long]
+    while (in.hasNext()) {
+        val str = in.next()
+        if (result.contains(str)) result(str) += 1 
+        else result += (str -> 1)
+    }
+    in.close()
 
-        print(result)
+    print(result)
+    ```
 
 6. 
 
@@ -139,11 +147,13 @@ tags: [Scala, 快学Scala, Scala for the Impatient]
 
 9. 
 
-        def lteqgt(values: Array[Int], v: Int) = {
-            val lt = values.filter(_ < v).length
-            val eq = values.filter(_ == v).length
-            (lt, eq, (values.length - lt - eq))
-        }
+    ```scala
+    def lteqgt(values: Array[Int], v: Int) = {
+        val lt = values.filter(_ < v).length
+        val eq = values.filter(_ == v).length
+        (lt, eq, (values.length - lt - eq))
+    }
+    ```
 
         scala> val (lt, eq, gt) = lteqgt(Array(1,2,3,4,5,6), 4)
         lt: Int = 3
