@@ -95,7 +95,7 @@ tags: [Scala, 快学Scala, Scala for the Impatient]
     }
     ```
 
-6. 这四个花色的符号win下选输入法的特殊符合软键盘。在lin下可以用vim。在vim中输入`:dig`可以找到分别对应cS,cH,cD,cC。进入vim插入模式按`<CTRL-K>`，然后分别输入即可（注意大小写）
+6. 这四个花色的符号win下选输入法的特殊符号软键盘。在lin下可以用vim。在vim中输入`:dig`可以找到分别对应cS,cH,cD,cC。进入vim插入模式按`<CTRL-K>`，然后分别输入即可（注意大小写）
 
     ```scala
     object PokerFace extends Enumeration {
