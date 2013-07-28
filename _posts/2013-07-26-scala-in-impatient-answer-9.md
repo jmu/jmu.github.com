@@ -66,6 +66,7 @@ tags: [Scala, 快学Scala, Scala for the Impatient]
     ```
 
 5. 答案稍微有点不完美， 第一行应该都是1， 目前不知道除了判断1之外，还有什么优雅的方式
+  翻了一下别人的解答， `BigDecimal(2).pow(n)`可以解决这个问题
 
     ```scala
     import java.io.PrintWriter
@@ -103,7 +104,8 @@ tags: [Scala, 快学Scala, Scala for the Impatient]
     }
     ```
 
-7. 正则写了好久- -!! 重点在于匹配所有不是浮点数的token。
+7. 正则写了好久- -!! 重点在于匹配所有不是浮点数的token。类似`20`这样的在这里我认
+为是整数，不是浮点数。
 
     ```scala
     import scala.io.Source
