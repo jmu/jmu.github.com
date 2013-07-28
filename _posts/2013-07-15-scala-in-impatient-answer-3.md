@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Scala in Impatient 习题解答3"
+title: "Scala in Impatient 习题解答3 数组相关A1"
 description: "快学Scala习题答案"
 category: Scala
 tags: [Scala, 快学Scala, Scala for the Impatient]

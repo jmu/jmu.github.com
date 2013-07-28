@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Scala in Impatient 习题解答10"
+title: "Scala in Impatient 习题解答10 特质L1"
 description: "快学Scala习题答案"
 category: Scala
 tags: [Scala, 快学Scala, Scala for the Impatient]
@@ -52,10 +52,10 @@ tags: [Scala, 快学Scala, Scala for the Impatient]
 3. 不知道题中所指的是immutable下的还是mutable下BitSet。姑且先就使用
   `scala.collection.mutable.BitSet`吧。
 
-      class BitSet extends Set[Int] with BitSet with BitSetLike[BitSet] with
-      SetLike[Int, BitSet] with Serializable
-      lin(BitSet) = BitSet >> Serializable >> SetLike >> BitSetLike >> 
-      collection.BitSet >> Set
+        class BitSet extends Set[Int] with BitSet with BitSetLike[BitSet] with
+        SetLike[Int, BitSet] with Serializable
+        lin(BitSet) = BitSet >> Serializable >> SetLike >> BitSetLike >> 
+        collection.BitSet >> Set
 
 4. 此题英文原版进行了更正<http://horstmann.com/scala/bugs.html>。应该是实现一个
 trait。
