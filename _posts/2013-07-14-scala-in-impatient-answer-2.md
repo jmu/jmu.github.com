@@ -41,6 +41,9 @@ x=y=1就是合法的。
     def countdown(n:Int) {
         for (i <- n.to(0,-1)) println(i)
     }
+    
+    //考虑负数的情况
+    def countdown2(n: Int) = n.to(0, -n.signum).foreach(println)
     ```
 
 6. 算了半天也不对，后来发现默认的Int不够长。用Long就可以了。
