@@ -77,7 +77,10 @@ tags: [Scala, 快学Scala, Scala for the Impatient]
 
     class Table(val html: String) {
       def |(td: String): Table = {
-        operate("</td>", "<td>" + td + "</td>")
+        if (html.indexOf("</tr>") == -1)
+          operate("<table>", "<tr><td>" + td + "</td></tr>")
+        else
+          operate("</td>", "<td>" + td + "</td>")
       }
 
       def ||(tr: String): Table = {
@@ -102,6 +105,11 @@ tags: [Scala, 快学Scala, Scala for the Impatient]
       override def toString = html
     }
     ```
+
+        scala> Table() | "jmu" | "is"|| "a" || "scala" | "guy" |"now."
+        res6: Table =
+        <table><tr><td>jmu</td><td>is</td></tr><tr><td>a</td></tr><tr><td>scala</td><td>guy</td><td>now.</td></tr></table>
+
 6. 
 
 
