@@ -56,6 +56,49 @@ tags: [Scala, 快学Scala, Scala for the Impatient]
       arry.flatMap(m.get(_))
     }
     ```
+5. 
+
+    ```scala
+    def mkString(it: Iterable[Any]): String = {
+      it.reduceLeft{ (a,b) => 
+        val re:Any = a.toString + b.toString
+        re
+      }.toString
+    }
+    ```
+
+6. 
+
+    ```
+    scala> (lst :\ List[Int]())(_ :: _)
+    res39: List[Int] = List(1, 2, 3, 5)
+
+    scala> (List[Int]() /: lst)( _:+ _)
+    res40: List[Int] = List(1, 2, 3, 5)
+    ```
+
+   都是他们的本身，反序应该使用
+
+    ```scala
+    (lst :\ List[Int]())((a,b) => b :+ a)
+    (List[Int]() /: lst)((a,b) => b :: a)
+    ```
+
+7. 
+
+    ```scala
+    (prices zip quantities).map(Function.tupled(_*_))
+    ```
+
+8. 
+
+    ```scala
+    def groupit(arry: Array[Double], column: Int) = {
+      arry.grouped(column).toArray.map(_.toArray)
+    }
+    ```
+
+
 
 
 未完待续...
