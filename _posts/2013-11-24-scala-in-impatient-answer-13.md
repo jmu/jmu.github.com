@@ -98,10 +98,75 @@ tags: [Scala, 快学Scala, Scala for the Impatient]
     }
     ```
 
+9. 使用SynchronizeMap混入的HashMap在get和set来改变值的时候不是线程安全的。
+即使他们分别都是线程安全的。
 
+    ```scala
+    import scala.io.Source
 
+    object Myapp1 extends App {
+      val frequencies = new collection.mutable.HashMap[Char, Int] with
+      collection.mutable.SynchronizedMap[Char, Int]
 
-未完待续...
+      args.foreach {arg =>
+        new Thread() {
+        override def run() {
+           for(c <- Source.fromFile(arg)) {
+             frequencies(c) = frequencies.getOrElse(c, 0) + 1
+           }
+         } 
+        }.run();
+      }
+
+      Thread.sleep(5000)
+      println(frequencies)
+
+    }
+    ```
+
+    使用Java的`ConcurrentHashMap`能解决这个问题。
+
+    ```scala
+    import scala.io.Source
+    import scala.collection.JavaConversions.asScalaConcurrentMap
+
+    object Myapp2 extends App {
+      val frequencies: collection.mutable.ConcurrentMap[Char, Int] =
+          new java.util.concurrent.ConcurrentHashMap[Char, Int]
+
+      args.foreach {arg =>
+        new Thread() {
+        override def run() {
+           for(c <- Source.fromFile(arg)) {
+             frequencies(c) = frequencies.getOrElse(c, 0) + 1
+           }
+         } 
+        }.run()
+      }
+
+      Thread.sleep(5000)
+      println(frequencies)
+
+    }
+    ```
+10. 修改mutable的HashMap存在线程安全问题。解决方法是改成immutable的方式
+
+    ```scala
+    import scala.io.Source
+
+    object Myapp extends App {
+      val frequencies = new collection.immutable.HashMap[Char, Int]
+
+      args.foreach {arg =>
+        val str = Source.fromFile(arg).mkString
+        //for(c <- str.par) frequencies(c) = frequencies.getOrElse(c, 0) + 1
+        println(str.par.aggregate(frequencies)((f, c) =>
+          f + (c -> (f.getOrElse(c, 0) + 1)),
+          (a,b) => a.map(e => e._1 -> (b.getOrElse(e._1, 0) + e._2))
+        ))
+      }
+    }
+    ```
 
 ----
 <div align="right">use Scala 2.9.1</div>
