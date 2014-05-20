@@ -34,7 +34,7 @@ tags: [Scala, 快学Scala, Scala for the Impatient]
     }
 
     scala> a
-    res3: Array[Int] = Array(2, 1, 4, 3, 6, 5)
+    res3: Array[Int] = Array(2, 1, 4, 3, 5)
     ```
 
 3. 用`yield`生成新数组
