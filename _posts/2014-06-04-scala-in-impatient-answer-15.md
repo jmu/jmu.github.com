@@ -153,6 +153,67 @@ tags: [Scala, 快学Scala, Scala for the Impatient]
     }
     ```
 
+7. 
+
+    ```scala
+    import scala.annotation.tailrec
+
+    class Util {
+      @tailrec
+      def printStr(s: String) {
+        if (s.length > 0) {
+          println(s.head)
+          printStr(s.tail) 
+        }
+      }
+    }
+    ```
+
+  错误消息如下,改成final可以修正这个问题。
+
+        <console>:13: error: could not optimize @tailrec annotated method
+        printStr: it is neither private nor final so can be overridden
+                 def printStr(s: String) {
+                     ^
+
+8. 
+
+    ```scala
+    object MyObj {
+      def allDifferent[@specialized T] (x: T, y: T, z: T) = {}
+    }
+    ```
+
+  执行结果如下，生成了9种
+
+        Compiled from "fun.scala"
+        public final class MyObj$ {
+          public static final MyObj$ MODULE$;
+          public static {};
+          public <T extends java/lang/Object> void allDifferent(T, T, T);
+          public void allDifferent$mZc$sp(boolean, boolean, boolean);
+          public void allDifferent$mBc$sp(byte, byte, byte);
+          public void allDifferent$mCc$sp(char, char, char);
+          public void allDifferent$mDc$sp(double, double, double);
+          public void allDifferent$mFc$sp(float, float, float);
+          public void allDifferent$mIc$sp(int, int, int);
+          public void allDifferent$mJc$sp(long, long, long);
+          public void allDifferent$mSc$sp(short, short, short);
+          public void allDifferent$mVc$sp(scala.runtime.BoxedUnit, scala.runtime.BoxedUnit, scala.runtime.BoxedUnit);
+        }
+
+9. 
+
+10. 
+
+禁用断言下编译后，就不会再报assertion failed的异常了。
+这次我使用了sbt来进行编译。sbt的确如人所说，入手比较难用。
+在sbt>交互界面下设置禁用断言的option
+
+        set scalacOptions in ThisBuild ++= Seq("-Xelide-below", "2001")
+
+再次compile后，断言不会被编译到class里。使用javap验证一下
+
 to be continued.
 
 ----
