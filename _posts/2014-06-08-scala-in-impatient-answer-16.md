@@ -29,11 +29,13 @@ tags: [Scala, 快学Scala, Scala for the Impatient]
 
   你如何修复它？
 
+  解答如下,除了用CDATA，大括号也可以用双大括号的方式。
+
     ```scala
     <ul>
       <li>Opening bracket: <![CDATA[[]]></li>
       <li>Closing bracket: <![CDATA[]]]></li>
-      <li>Opening brace: {{</li>
+      <li>Opening brace: <![CDATA[{]]></li>
       <li>Opening brace: }}</li>
     </ul>
     ```
