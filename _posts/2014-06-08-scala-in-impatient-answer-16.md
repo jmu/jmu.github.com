@@ -29,12 +29,14 @@ tags: [Scala, 快学Scala, Scala for the Impatient]
 
   你如何修复它？
 
-        <ul>
-          <li>Opening bracket: <![CDATA[[]]></li>
-          <li>Closing bracket: <![CDATA[]]]></li>
-          <li>Opening brace: {{</li>
-          <li>Opening brace: }}</li>
-        </ul>
+    ```scala
+    <ul>
+      <li>Opening bracket: <![CDATA[[]]></li>
+      <li>Closing bracket: <![CDATA[]]]></li>
+      <li>Opening brace: {{</li>
+      <li>Opening brace: }}</li>
+    </ul>
+    ```
 
 3. 比对
 `<li>Fred</li> match { case <li>{Text(t)}</li> => t }`
@@ -108,29 +110,30 @@ tags: [Scala, 快学Scala, Scala for the Impatient]
     ```
 
 9. 
-同10
+  同10
 
 10. 
-
 测试用文件page.xml
 
-        <!DOCTYPE html
-        PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-        <html>
-            <head>
-                <title>simple document</title>
-            </head>
-            <body>
-                <p>a simple paragraph
-                    <img alt="aa"></img>
-                    <img src="1.jpg"></img>
-                </p>
-                <img/>
-            </body>
-            <![CDATA[system.out.println()]]>
-            <!-- comments here -->
-        </html>
+    ```html
+    <!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+    <html>
+        <head>
+            <title>simple document</title>
+        </head>
+        <body>
+            <p>a simple paragraph
+                <img alt="aa"></img>
+                <img src="1.jpg"></img>
+            </p>
+            <img/>
+        </body>
+        <![CDATA[system.out.println()]]>
+        <!-- comments here -->
+    </html>
+    ```
 
   代码如下
 
