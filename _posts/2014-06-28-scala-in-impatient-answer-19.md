@@ -27,8 +27,6 @@ tags: [Scala, 快学Scala, Scala for the Impatient]
           case "/" => a / b._2
           case "%" => a % b._2
         })
-        //case f ~ Some("/" ~ e) => f / e
-        //case f ~ Some("%" ~ e) => f % e
       }
       def factor: Parser[Double] = number ^^ {_.toDouble} | "(" ~> expr <~ ")"
 
