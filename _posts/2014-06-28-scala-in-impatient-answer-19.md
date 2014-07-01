@@ -145,8 +145,73 @@ tags: [Scala, 快学Scala, Scala for the Impatient]
 
 5. 
 6. 
+
+    ```scala
+    import scala.util.parsing.combinator.{PackratParsers, RegexParsers}
+    import scala.util.parsing.input.CharSequenceReader
+
+    class Expr
+
+    case class Number(value: Int) extends Expr
+
+    case class Operator(op: String, left: Expr, right: Expr) extends Expr
+
+    class ExprParser extends RegexParsers with PackratParsers {
+      val wholeNumber = "[0-9]+".r
+
+      lazy val expr: PackratParser[Expr] = (opt(expr ~ ("+" | "-")) ~ term) ^^ {
+        case None ~ a => a
+        case Some(b ~ op) ~ a => Operator(op, b, a)
+      }
+
+      lazy val term: PackratParser[Expr] = (factor ~ opt("*" ~> term)) ^^ {
+        case a ~ None => a
+        case a ~ Some(b) => Operator("*", a, b)
+      }
+
+      lazy val factor: PackratParser[Expr] = wholeNumber ^^ (n => Number(n.toInt)) |
+        "(" ~> expr <~ ")"
+
+      def parseAll[T](p: Parser[T], input: String) =
+        phrase(p)(new PackratReader(new CharSequenceReader(input)))
+    }
+
+    object ParserMain extends App {
+      val parser = new ExprParser()
+      val result = parser.parseAll(parser.expr, "3-4 -5 ")
+      if (result.successful)
+        println(result.get)
+    }
+    ```
+
 7. 
+
+    ```scala
+    import scala.util.parsing.combinator.RegexParsers
+
+    class ExprParser extends RegexParsers {
+      val number = "[0-9]+".r
+
+      def expr: Parser[Double] = term ~ rep(("+" | "-") ~ term) ^^ {
+        case t ~ r => (t /: r)((a, b) => b._1 match {
+          case "+" => a + b._2
+          case "-" => a - b._2
+        })
+      }
+
+      def term: Parser[Double] = number ^^ { _.toDouble } | "(" ~> expr <~ ")"
+    }
+
+    object ParserMain extends App {
+      val parser = new ExprParser()
+      val result = parser.parseAll(parser.expr, "3-4 -5")
+      if (result.successful)
+        println(result.get)
+    }
+    ```
+
 8. 
+
 9. 
 10. 
 
