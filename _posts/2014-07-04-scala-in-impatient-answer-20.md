@@ -291,7 +291,230 @@ tags: [Scala, 快学Scala, Scala for the Impatient]
     }
     ```
 
-4. 
+4. 上题稍加修改即可
+
+    ```scala
+    import java.io.File
+
+    import scala.actors.Actor
+    import scala.io.Source
+    import scala.util.matching.Regex
+
+
+    case class FileSearch(file: File, regex: Regex, out: Actor)
+    case class CountResult(matched: Seq[String])
+
+    class DirSearchActor(path: File, regex: Regex) extends Actor {
+      private var collect: Actor = null
+
+      def act() {
+        collect = new CollectActor
+        collect.start()
+        println("Start search " + path.getAbsoluteFile)
+        search(path)
+
+      }
+
+
+      private def search(file: File) {
+        if (file.canRead) {
+          file.listFiles.foreach {
+            case f: File if f.isFile && f.canRead =>
+              val readActor = new FileReadActor
+              readActor.start()
+              readActor ! FileSearch(f, regex, collect)
+            case d: File if d.isDirectory => search(d)
+            case _ =>
+          }
+        }
+      }
+
+      def over {
+        collect ! "Exit"
+      }
+    }
+
+    class FileReadActor() extends Actor {
+      def act() {
+        react {
+          case FileSearch(file, regex, out) =>
+            println(Thread.currentThread().getName + file.getAbsoluteFile)
+            out ! CountResult(Source.fromFile(file).getLines().flatMap(regex.findAllIn(_).toSeq).toSeq)
+        }
+
+
+      }
+
+    }
+
+    class CollectActor extends Actor {
+      //var total: List[String] = Nil
+
+      def act() {
+        loop {
+          react {
+            case CountResult(seq) =>
+              //total = total ++ seq
+              seq.foreach(println)
+
+            case "Exit" =>
+              exit()
+          }
+        }
+      }
+
+    }
+
+    object WordCountMain extends App {
+      args match {
+        case Array(path, regex) =>
+          val root = new File(path)
+          root match {
+            case f: File if f.isDirectory =>
+              val actor = new DirSearchActor(f, regex.r)
+              actor.start()
+              Thread.sleep(10000)
+              actor.over
+            case _ => println("ERROR: not a valid path.")
+          }
+
+        case _ => println("Usage: WordCountMain <path> <regex>")
+      }
+    }
+    ```
+
+5. 
+
+    ```scala
+    import java.io.File
+
+    import scala.actors.Actor
+    import scala.io.Source
+    import scala.util.matching.Regex
+
+
+    case class FileSearch(file: File, regex: Regex, out: Actor)
+    case class CountResult(matched: Seq[String], fileName: String)
+
+    class DirSearchActor(path: File, regex: Regex) extends Actor {
+      private var collect: Actor = null
+
+      def act() {
+        collect = new CollectActor
+        collect.start()
+        println("Start search " + path.getAbsoluteFile)
+        search(path)
+
+      }
+
+
+      private def search(file: File) {
+        if (file.canRead) {
+          file.listFiles.foreach {
+            case f: File if f.isFile && f.canRead =>
+              val readActor = new FileReadActor
+              readActor.start()
+              readActor ! FileSearch(f, regex, collect)
+            case d: File if d.isDirectory => search(d)
+            case _ =>
+          }
+        }
+      }
+
+      def over {
+        collect ! "Exit"
+      }
+    }
+
+    class FileReadActor() extends Actor {
+      def act() {
+        react {
+          case FileSearch(file, regex, out) =>
+            println(Thread.currentThread().getName + file.getAbsoluteFile)
+            out ! CountResult(Source.fromFile(file).getLines().flatMap(regex.findAllIn(_).toSeq).toSeq, file.getName)
+        }
+
+
+      }
+
+    }
+
+    class CollectActor extends Actor {
+     var total  = collection.mutable.Map[String, Set[String]]()
+
+      def act() {
+        loop {
+          react {
+            case CountResult(seq, fileName) =>
+              seq.foreach { value =>
+                total(value) = total.get(value).map(_ + fileName).getOrElse(Set(fileName))
+              }
+
+            case "Exit" =>
+              println(total)
+              exit()
+          }
+        }
+      }
+
+    }
+
+    object WordCountMain extends App {
+      args match {
+        case Array(path, regex) =>
+          val root = new File(path)
+          root match {
+            case f: File if f.isDirectory =>
+              val actor = new DirSearchActor(f, regex.r)
+              actor.start()
+              Thread.sleep(10000)
+              actor.over
+            case _ => println("ERROR: not a valid path.")
+          }
+
+        case _ => println("Usage: WordCountMain <path> <regex>")
+      }
+    }
+    ```
+
+6. 
+
+    ```scala
+    import scala.actors.Actor
+
+    class HundredActor extends Actor {
+      def act() {
+        while(true) {
+          receive {
+            case 'Hello => println(Thread.currentThread())
+          }
+        }
+      }
+    }
+
+    class HundredActor2 extends Actor {
+      def act() {
+        loop {
+          react {
+            case 'Hello => println(Thread.currentThread())
+          }
+        }
+      }
+    }
+
+    object HMain extends App {
+      (1 to 100).foreach { n =>
+        //val a = new HundredActor
+        val a = new HundredActor2
+        a.start()
+        a ! 'Hello
+      }
+    }
+    ```
+
+可以看到，使用`recevie`的方法启动了100个线程，而`react`的方式只使用4个。
+
+7. 
 
 ----
 <div align="right">use Scala 2.11.1</div>
