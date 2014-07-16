@@ -208,6 +208,91 @@ tags: [Scala, 快学Scala, Scala for the Impatient]
     }
     ```
 
+3. 
+
+    ```scala
+    import java.io.File
+
+    import scala.actors.Actor
+    import scala.io.Source
+    import scala.util.matching.Regex
+
+
+    case class FileSearch(file: File, regex: Regex, out: Actor)
+    case class CountResult(total: Long)
+
+    class DirSearchActor(path: File, regex: Regex) extends Actor {
+      private var collect: Actor = null
+
+      def act() {
+        collect = new CollectActor
+        collect.start()
+        println("Start search " + path.getAbsoluteFile)
+        search(path)
+
+      }
+
+
+      private def search(file: File) {
+        if (file.canRead) {
+          file.listFiles.foreach {
+            case f: File if f.isFile && f.canRead =>
+              val readActor = new FileReadActor
+              readActor.start()
+              readActor ! FileSearch(f, regex, collect)
+            case d: File if d.isDirectory => search(d)
+            case _ =>
+          }
+        }
+      }
+    }
+
+    class FileReadActor() extends Actor {
+      def act() {
+        react {
+          case FileSearch(file, regex, out) =>
+            println(Thread.currentThread().getName + file.getAbsoluteFile)
+            out ! CountResult(Source.fromFile(file).getLines().map(regex.findAllIn(_).size).sum)
+        }
+
+
+      }
+
+    }
+
+    class CollectActor extends Actor {
+      var total = 0L
+
+      def act() {
+        loop {
+          react {
+            case CountResult(count) =>
+              total = total + count
+              println(total)
+          }
+        }
+      }
+
+    }
+
+    object WordCountMain extends App {
+      args match {
+        case Array(path, regex) =>
+          val root = new File(path)
+          root match {
+            case f: File if f.isDirectory =>
+              val actor = new DirSearchActor(f, regex.r)
+              actor.start()
+            case _ => println("ERROR: not a valid path.")
+          }
+
+        case _ => println("Usage: WordCountMain <path> <regex>")
+      }
+    }
+    ```
+
+4. 
+
 ----
 <div align="right">use Scala 2.11.1</div>
 
