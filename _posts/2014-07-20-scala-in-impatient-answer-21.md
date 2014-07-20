@@ -35,6 +35,7 @@ tags: [Scala, 快学Scala, Scala for the Impatient]
     implicit class PercentPlus(val number: Int) {
          def +%(p: Int): Double = number * (1 + p/100D) 
     }
+    ```
 
 3. 虽然可以如题中提示那样用一个常规类和一个隐式转换声明。使用隐式类更简洁一些，如下所示
 
